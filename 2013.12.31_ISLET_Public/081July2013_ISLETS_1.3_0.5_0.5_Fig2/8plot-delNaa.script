@@ -1,0 +1,53 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "-delNaa"
+set output "delNaa.eps"
+plot "delNaa1.dat" u 1:2 t "Pb=0.3" w p lt -1 pt 7,\
+"delNaa2.dat" u 1:2 t "Pb=0.5" w p lt 3 pt 65,\
+"delNaa3.dat" u 1:2 t "Pb=0.6" w p lt 1 pt 13
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "-delNbb"
+set output "delNbb.eps"
+plot "delNaa1.dat" u 1:3 t "Pb=0.3" w p lt -1 pt 7,\
+"delNaa2.dat" u 1:3 t "Pb=0.5" w p lt 3 pt 65,\
+"delNaa3.dat" u 1:3 t "Pb=0.6" w p lt 1 pt 13
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "delNab"
+set output "delNab.eps"
+plot "delNaa1.dat" u 1:4 t "Pb=0.3" w p lt -1 pt 7,\
+"delNaa2.dat" u 1:4 t "Pb=0.5" w p lt 3 pt 65,\
+"delNaa3.dat" u 1:4 t "Pb=0.6" w p lt 1 pt 13
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 27
+set autoscale
+set key right top
+set pointsize 1.2
+set xlabel "Jab"
+set ylabel "-delNbb/Nab"
+set output "delNbb-Nab.eps"
+plot "delNaa1.dat" u 1:5 t "Pb=0.3" w p lt -1 pt 7,\
+"delNaa2.dat" u 1:5 t "Pb=0.5" w p lt 3 pt 65,\
+"delNaa3.dat" u 1:5 t "Pb=0.6" w p lt 1 pt 13
+EOF

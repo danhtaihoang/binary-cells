@@ -1,0 +1,14 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "P"
+set output "P-compare.eps"
+plot "Paa.dat" u 3:6 t "Pab" w p lt -1 pt 7,\
+"Paa.dat" u 3:4 t "Paa" w p lt 3 pt 65,\
+"Paa.dat" u 3:5 t "Pab" w p lt 1 pt 13
+EOF

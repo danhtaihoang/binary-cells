@@ -1,0 +1,62 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 35
+set autoscale
+set key right top
+set pointsize 1.6
+set xrange [0.099:0.901]
+set yrange [0:0.901]
+set xtics 0.2
+set mxtics 2
+set ytics 0.2
+set mytics 2 
+set xlabel "Pb"
+set ylabel "Paa"
+set output "Paa-compare.eps"
+plot "Paa1.dat" u 2:4 notitle w p lt 3 pt 65,\
+"Paa2.dat" u 2:4 notitle w p lt 9 pt 13,\
+"Paa3.dat" u 2:4 notitle w p lt 1 pt 11,\
+"Paa4.dat" u 2:4 notitle w p lt -1 pt 7
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 35
+set autoscale
+set key right top
+set pointsize 1.6
+set xrange [0.099:0.901]
+set yrange [0:0.901]
+set xtics 0.2
+set mxtics 2
+set ytics 0.2
+set mytics 2 
+set xlabel "Pb"
+set ylabel "Pbb"
+set output "Pbb-compare.eps"
+plot "Paa1.dat" u 2:5 notitle w p lt 3 pt 65,\
+"Paa2.dat" u 2:5 notitle w p lt 9 pt 13,\
+"Paa3.dat" u 2:5 notitle w p lt 1 pt 11,\
+"Paa4.dat" u 2:5 notitle w p lt -1 pt 7
+EOF
+
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 35
+set autoscale
+set key right top
+set pointsize 1.6
+set xrange [0.099:0.901]
+set xtics 0.2
+set mxtics 2
+set ytics 0.2
+set mytics 2
+set xlabel "Pb"
+set ylabel "Pab"
+set output "Pab-compare.eps"
+plot "Paa1.dat" u 2:6 notitle w p lt 3 pt 65,\
+"Paa2.dat" u 2:6 notitle w p lt 9 pt 13,\
+"Paa3.dat" u 2:6 notitle w p lt 1 pt 11,\
+"Paa4.dat" u 2:6 notitle w p lt -1 pt 7
+
+EOF

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "Pb"
+set ylabel "P"
+set output "Pabc.eps"
+plot "Paa.dat" u 2:4 t "Paa" w p lt -1 pt 7,\
+"Paa.dat" u 2:5 t "Pbb" w p lt 3 pt 65,\
+"Paa.dat" u 2:6 t "Pab" w p lt 1 pt 13
+EOF

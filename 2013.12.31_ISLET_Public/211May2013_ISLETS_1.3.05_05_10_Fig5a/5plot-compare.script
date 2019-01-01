@@ -1,0 +1,42 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 30
+set autoscale
+set key right top
+set pointsize 1.4
+set xrange [0.3:0.7]
+set xlabel "Pb"
+set ylabel "Paa"
+set output "Paa-compare.eps"
+plot "Paa1.dat" u 2:4 t "L=10, T=0.5" w p lt -1 pt 7,\
+"Paa2.dat" u 2:4 t "L=14, T=0.5" w p lt 3 pt 65
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 30
+set autoscale
+set key right top
+set pointsize 1.4
+set xrange [0.3:0.7]
+set xlabel "Pb"
+set ylabel "Pbb"
+set output "Pbb-compare.eps"
+plot "Paa1.dat" u 2:5 t "L=10, T=0.5" w p lt -1 pt 7,\
+"Paa2.dat" u 2:5 t "L=14, T=0.5" w p lt 3 pt 65
+EOF
+
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 30
+set autoscale
+set key right top
+set pointsize 1.4
+set xrange [0.3:0.7]
+set xlabel "Pb"
+set ylabel "Pab"
+set output "Pab-compare.eps"
+plot "Paa1.dat" u 2:6 t "L=10, T=0.5" w p lt -1 pt 7,\
+"Paa2.dat" u 2:6 t "L=14, T=0.5" w p lt 3 pt 65
+
+EOF

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+gfortran -Wall -fdefault-integer-8 -fdefault-real-8 1main_BIO.f90
+#qsub 0job
+#time ./a.out

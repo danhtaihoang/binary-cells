@@ -1,0 +1,24 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "FPab"
+set output "FPab-times.eps"
+plot "FPab_times.dat" u 1:2 t "FPab-times" w p lt -1 pt 7
+EOF
+
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.1
+set xlabel "Jab"
+set ylabel "FPab"
+set output "FPab-indirect.eps"
+plot "FPab_times.dat" u 1:3 t "FPab-indirect" w p lt -1 pt 7
+EOF

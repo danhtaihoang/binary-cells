@@ -1,0 +1,12 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 12
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "itimesx5k"
+set ylabel "E"
+set output "E-itimes.eps"
+plot "E_itimes.dat" u 1:2 t "Jab=1.0" w p lt -1 pt 7
+EOF

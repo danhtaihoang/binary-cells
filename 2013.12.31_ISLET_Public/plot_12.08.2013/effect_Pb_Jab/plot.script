@@ -1,0 +1,19 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1.3
+set xlabel "Pb"
+set yrange [0.5:2.6]
+set xtics 0.1
+set mxtics 2
+set mytics 2
+set ylabel "Jab"
+set output "effect-Jab.eps"
+plot "a.txt" u 1:2 notitle w p lt -1 pt 7,\
+"a.txt" u 1:3 notitle w p lt 3 pt 65,\
+"a.txt" u 1:4 notitle w p lt 1 pt 13
+
+EOF

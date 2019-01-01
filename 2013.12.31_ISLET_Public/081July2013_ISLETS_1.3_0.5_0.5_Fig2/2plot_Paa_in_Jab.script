@@ -1,0 +1,148 @@
+#!/bin/sh
+
+#=========================================================================================
+# Loai bo, chi lay tu cot 31 den cot 35 cua file parameter.in
+cut -c31-35 1parameter.in > parameter_file_giantiep.dat
+
+# Doc gia tri dua vao so dong
+i=1
+while [ $i -le 35 ]
+do
+read value
+
+if [ $i -eq 6 ]
+then
+motif_struct=$value
+fi
+
+if [ $i -eq 7 ]
+then
+lattice=$value
+fi
+
+if [ $i -eq 11 ]
+then
+GS=$value
+fi
+
+if [ $i -eq 17 ]
+then
+natx=$value
+fi
+
+if [ $i -eq 18 ]
+then
+naty=$value
+fi
+
+if [ $i -eq 19 ]
+then
+natz=$value
+fi
+
+if [ $i -eq 27 ]
+then
+Jaa=$value
+fi
+
+if [ $i -eq 28 ]
+then
+Jbb=$value
+fi
+
+if [ $i -eq 29 ]
+then
+Jab=$value
+fi
+
+if [ $i -eq 34 ]
+then
+T=$value
+fi
+
+i=$(echo "scale=0; $i+1" | bc)
+done < parameter_file_giantiep.dat
+
+rm parameter_file_giantiep.dat
+
+echo "Natx = " $natx
+echo "Naty = " $naty
+echo "Jaa: " $Jaa
+echo "Jbb: " $Jbb
+echo "Jab: " $Jab
+echo "T: " $T
+
+# =============================================================================================
+# =============================================================================================
+# GAN CAC DAI LUONG CAN VE DO THI
+# =============================================================================================
+# =============================================================================================
+
+for i in 1 2 3 4 5 6
+do
+
+if [ $i -eq 1 ]
+then
+name_y="Paa"
+number_culomn=4
+file_average_dat="Paa.dat"
+fi
+
+if [ $i -eq 2 ]
+then
+name_y="Pbb"
+number_culomn=5
+file_average_dat="Paa.dat"
+fi
+
+if [ $i -eq 3 ]
+then
+name_y="Pab"
+number_culomn=6
+file_average_dat="Paa.dat"
+fi
+
+if [ $i -eq 4 ]
+then
+name_y="FPaa"
+number_culomn=7
+file_average_dat="Paa.dat"
+fi
+
+if [ $i -eq 5 ]
+then
+name_y="FPbb"
+number_culomn=8
+file_average_dat="Paa.dat"
+fi
+
+if [ $i -eq 6 ]
+then
+name_y="FPab"
+number_culomn=9
+file_average_dat="Paa.dat"
+fi
+
+
+# =============================================================================================
+# =============================================================================================
+# VE DO THI
+# =============================================================================================
+# =============================================================================================
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 27
+set autoscale
+set key right top
+set pointsize 1.2
+set xlabel "Jab"
+set ylabel "$name_y"
+set output "$name_y.eps"
+set title "$natx x$naty x$natz ; Jaa=$Jaa; Jbb=$Jbb; Jab=$Jab; T=$T"
+plot "$file_average_dat" u 3:$number_culomn notitle w p lt -1 pt 7
+
+EOF
+
+done
+
+

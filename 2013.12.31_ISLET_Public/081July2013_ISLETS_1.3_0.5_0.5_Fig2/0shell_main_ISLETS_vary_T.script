@@ -1,0 +1,289 @@
+#!/bin/sh
+# ===========================================================================================
+# **************** Lua chon buoc tien hanh ********************
+# ===========================================================================================
+
+echo -n "Choise the step (1 for Compile Parallel T, 2 for Compile Parallel Na, 3 for Compile ensembles, "
+echo -n "4 for Compile Parallel Jab, 5 for Collection) : "
+read number_buoc
+
+# ===========================================================================================
+#  ****************** COMPILE Parallel T ******************
+# ===========================================================================================
+# ---------------------------------------------
+# Nhap cac gia tri vao
+if [ $number_buoc -eq 1 ]
+then
+echo "BUOC COMPILE"
+
+clear
+rm -r config_ini_3D
+rm -r config_3D
+rm *.dat
+rm a.out
+gfortran -Wall -fdefault-integer-8 -fdefault-real-8 1main_BIO.f90
+
+echo -n "Value Tmin = "
+read Tmin
+
+echo -n "Value Tmax = "
+read Tmax
+
+echo -n "Value nT = "
+read nT
+
+if [ $nT -eq 1 ]
+then
+delT=0
+else
+delT=$(echo "scale=4; ($Tmax-$Tmin)/($nT-1)" | bc)
+fi
+echo "delT=$delT"
+
+# ---------------------------------------------
+# Tao cac thu muc, compile lan luot tung thu muc
+
+mkdir a
+cp 1parameter.in a
+cp a.out a
+
+i_folder=1
+while [ $i_folder -le $nT ]
+do
+cp -r a $i_folder
+
+T=$(echo "scale=4; $Tmin+($i_folder-1)*$delT" | bc)
+
+sed -i "s/'Tmin                      '  1.0/'Tmin                      '  $T/g" $i_folder/1parameter.in
+
+echo "running folder $i_folder"
+cd $i_folder
+./a.out &
+cd ..
+
+i_folder=$(echo "scale=0; $i_folder+1" | bc)
+
+done
+
+rm -r a
+
+fi
+
+# ===========================================================================================
+#  ****************** COMPILE Parallel Na ******************
+# ===========================================================================================
+# ---------------------------------------------
+# Nhap cac gia tri vao
+if [ $number_buoc -eq 2 ]
+then
+echo "COMPILE Parallel Na"
+
+clear
+rm -r config_ini_3D
+rm -r config_3D
+rm *.dat
+rm a.out
+gfortran -Wall -fdefault-integer-8 -fdefault-real-8 1main_BIO.f90
+
+echo -n "Value Pro-Na-min = "
+read Namin
+
+echo -n "Value Pro-Na-max = "
+read Namax
+
+echo -n "Value n-Na = "
+read nNa
+
+if [ $nNa -eq 1 ]
+then
+delNa=0
+else
+delNa=$(echo "scale=7; ($Namax-$Namin)/($nNa-1)" | bc)
+fi
+echo "delNa=$delNa"
+
+# ---------------------------------------------
+# Tao cac thu muc, compile lan luot tung thu muc
+
+mkdir a
+cp 1parameter.in a
+cp a.out a
+
+i_folder=1
+while [ $i_folder -le $nNa ]
+do
+cp -r a $i_folder
+
+Na=$(echo "scale=7; $Namin+($i_folder-1)*$delNa" | bc)
+
+sed -i "s/'pro_a_min                 '  1.0/'pro_a_min                 '  $Na/g" $i_folder/1parameter.in
+
+echo "running folder $i_folder"
+cd $i_folder
+./a.out &
+cd ..
+
+i_folder=$(echo "scale=0; $i_folder+1" | bc)
+
+done
+
+rm -r a
+
+fi
+
+# ===========================================================================================
+#  ****************** COMPILE ensembles ******************
+# ===========================================================================================
+# ---------------------------------------------
+# Nhap cac gia tri vao
+if [ $number_buoc -eq 3 ]
+then
+echo "COMPILE Parallel Na"
+
+echo -n "Number ensembles = "
+read nn
+
+clear
+rm -r config_ini_3D
+rm -r config_3D
+rm *.dat
+rm a.out
+gfortran -Wall -fdefault-integer-8 -fdefault-real-8 1main_BIO.f90
+
+mkdir a
+cp 1parameter.in a
+cp a.out a
+
+i_folder=1
+while [ $i_folder -le $nn ]
+do
+cp -r a $i_folder
+
+echo "running folder $i_folder"
+cd $i_folder
+./a.out &
+cd ..
+
+i_folder=$(echo "scale=0; $i_folder+1" | bc)
+
+done
+
+rm -r a
+
+fi
+
+# ===========================================================================================
+#  ****************** COMPILE Parallel Jab ******************
+# ===========================================================================================
+# ---------------------------------------------
+# Nhap cac gia tri vao
+if [ $number_buoc -eq 4 ]
+then
+echo "COMPILE Parallel Jab"
+
+clear
+rm -r config_ini_3D
+rm -r config_3D
+rm *.dat
+rm a.out
+gfortran -Wall -fdefault-integer-8 -fdefault-real-8 1main_BIO.f90
+
+echo -n "Value Jab-min = "
+read Jabmin
+
+echo -n "Value Jab-max = "
+read Jabmax
+
+echo -n "Value n-Jab = "
+read nJab
+
+if [ $nJab -eq 1 ]
+then
+delJab=0
+else
+delJab=$(echo "scale=6; ($Jabmax-$Jabmin)/($nJab-1)" | bc)
+fi
+echo "delJab=$delJab"
+
+# ---------------------------------------------
+# Tao cac thu muc, compile lan luot tung thu muc
+
+mkdir a
+cp 1parameter.in a
+cp a.out a
+
+i_folder=1
+while [ $i_folder -le $nJab ]
+do
+cp -r a $i_folder
+
+Jab=$(echo "scale=5; $Jabmin+($i_folder-1)*$delJab" | bc)
+
+sed -i "s/'Jabmin                    '  1.0/'Jabmin                    '  $Jab/g" $i_folder/1parameter.in
+
+echo "running folder $i_folder"
+cd $i_folder
+./a.out &
+cd ..
+
+i_folder=$(echo "scale=0; $i_folder+1" | bc)
+
+done
+
+rm -r a
+
+fi
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# ===========================================================================================
+# ===========================================================================================
+#  ****************** BUOC TONG HOP KET QUA ******************
+# ===========================================================================================
+# ===========================================================================================
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# ---------------------------------------------
+# Nhap cac gia tri vao
+if [ $number_buoc -eq 5 ]
+then
+echo "BUOC TONG HOP KET QUA SAU KHI COMPILE"
+echo -n "delete folder?"
+read delete_folder
+
+echo -n "Number of folder = "
+read nT
+
+# ---------------------------------------------
+# Tien hanh tong hop ket qua
+
+echo "Copy config ini 3D"
+mkdir config_ini_3D
+cp 1/config_ini_3D/config_ini_3D.pdb config_ini_3D/
+
+mkdir config_3D
+rm average_thermal.dat
+rm Paa.dat
+
+i=1
+while [ $i -le $nT ]
+do
+number=$(echo "scale=0;10001000+$i" | bc)
+cp $i/config_3D/config_3D_BIO_10001001.pdb config_3D/config_3D_BIO_$number.pdb
+cat $i/average_thermal.dat >> average_thermal.dat
+cat $i/Paa.dat >> Paa.dat
+if [ $delete_folder -eq 1 ]
+then
+rm -r $i
+fi
+
+i=$(echo "scale=0; $i+1" | bc)
+done
+
+fi
+
+# ================================= THE END ============================================
+
+
+
+
+
+

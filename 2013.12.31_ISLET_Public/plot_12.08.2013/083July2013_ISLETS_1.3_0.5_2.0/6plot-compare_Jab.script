@@ -1,0 +1,56 @@
+#!/bin/sh
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "Jab"
+set ylabel "Paa"
+set output "Paa-Jabcompare.eps"
+plot "Paa1.dat" u 3:4 t "Pb=0.3" w p lt -1 pt 7,\
+"Paa2.dat" u 3:4 t "Pb=0.5" w p lt 3 pt 65,\
+"Paa3.dat" u 3:4 t "Pb=0.7" w p lt 1 pt 13
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "Jab"
+set ylabel "Pbb"
+set output "Pbb-Jabcompare.eps"
+plot "Paa1.dat" u 3:5 t "Pb=0.3" w p lt -1 pt 7,\
+"Paa2.dat" u 3:5 t "Pb=0.5" w p lt 3 pt 65,\
+"Paa3.dat" u 3:5 t "Pb=0.7" w p lt 1 pt 13
+EOF
+
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "Jab"
+set ylabel "Pab"
+set output "Pab-Jabcompare.eps"
+plot "Paa1.dat" u 3:6 t "Pb=0.3" w p lt -1 pt 7,\
+"Paa2.dat" u 3:6 t "Pb=0.5" w p lt 3 pt 65,\
+"Paa3.dat" u 3:6 t "Pb=0.7" w p lt 1 pt 13
+
+EOF
+
+gnuplot -persist << EOF
+set term postscript enhanced color "Times-Roman" 25
+set autoscale
+set key right top
+set pointsize 1
+set xlabel "Jab"
+set ylabel "FPab"
+set output "FPab-Jabcompare.eps"
+plot "Paa1.dat" u 3:9 t "Pb=0.3" w p lt -1 pt 7,\
+"Paa2.dat" u 3:9 t "Pb=0.5" w p lt 3 pt 65,\
+"Paa3.dat" u 3:9 t "Pb=0.7" w p lt 1 pt 13
+
+EOF
